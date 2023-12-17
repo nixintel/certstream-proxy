@@ -48,3 +48,5 @@ to start ingesting certs from the server you just created.
 Certstream ingests a *lot* of data. CaliDog estimate approx 250TB worth of data a month passing through the pipeline. In my experience of self-hosting so far, this is pretty close to reality.
 
 I had some initial issue setting this up with a domain that was behind Cloudflare and kept throwing 520 errors. The fix was to add  `large_client_header_buffers 4 16k;` to `nginx/conf.d/default.conf`
+
+[d-Rickyy-b](https://github.com/d-Rickyy-b/certstream-server-go) has also created a newer Certstream server written in Go which works pretty well,.
