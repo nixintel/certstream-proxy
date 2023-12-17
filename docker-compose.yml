@@ -1,0 +1,33 @@
+version: '3'
+services:
+  certstream:
+    image: nixintel/certstream:latest
+    container_name: certstream
+    hostname: certstream
+    ports:
+      - "4000:4000"
+    restart: always
+    networks:
+      - cert-network
+
+  reverse-proxy:
+    image: nginx
+    container_name: reverse-proxy
+    hostname: reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - /etc/letsencrypt/archive/sub.domain.com:/etc/letsencrypt/archive/sub.domain.com
+      - /etc/letsencrypt/live/sub.domain.com:/etc/letsencrypt/live/sub.domain.com
+       
+    depends_on:
+      - certstream
+
+    networks:
+      - cert-network
+    
+networks:
+  cert-network:
